@@ -128,32 +128,30 @@ export async function changePassword(userId: string, oldPassword: string, newPas
   try {
     const user = await prisma.user.findUnique({
       where: { id: userId },
-    });
+    })
 
     if (!user) {
-      return { success: false, message: 'ไม่พบผู้ใช้' };
+      return { success: false, message: 'ไม่พบผู้ใช้' }
     }
 
     // ตรวจสอบรหัสผ่านเดิม
-    const isOldPasswordCorrect = await bcrypt.compare(oldPassword, user.password);
+    const isOldPasswordCorrect = await bcrypt.compare(oldPassword, user.password)
     if (!isOldPasswordCorrect) {
-      return { success: false, message: 'รหัสผ่านเดิมไม่ถูกต้อง' };
+      return { success: false, message: 'รหัสผ่านเดิมไม่ถูกต้อง' }
     }
 
     // เข้ารหัสรหัสผ่านใหม่
-    const hashedNewPassword = await bcrypt.hash(newPassword, 10);
+    const hashedNewPassword = await bcrypt.hash(newPassword, 10)
 
     // อัปเดตฐานข้อมูล
     await prisma.user.update({
       where: { id: userId },
       data: { password: hashedNewPassword },
-    });
+    })
 
-    revalidatePath('/users'); // รีเฟรชหน้า users
-
-    return { success: true, message: 'รหัสผ่านถูกเปลี่ยนสำเร็จ' };
+    return { success: true, message: 'รหัสผ่านถูกเปลี่ยนสำเร็จ' }
   } catch (error) {
-    console.error('เกิดข้อผิดพลาดขณะเปลี่ยนรหัสผ่าน:', error);
-    return { success: false, message: 'เกิดข้อผิดพลาดขณะเปลี่ยนรหัสผ่าน' };
+    console.error('เกิดข้อผิดพลาดขณะเปลี่ยนรหัสผ่าน:', error)
+    return { success: false, message: 'เกิดข้อผิดพลาดขณะเปลี่ยนรหัสผ่าน' }
   }
 }
