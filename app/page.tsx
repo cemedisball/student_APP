@@ -1,11 +1,9 @@
-// app/page.tsx (Server Component, async ได้)
-import { getStudents } from './actions/studentActions';
-import { Student } from '@prisma/client';
-import StudentList from './StudentList'; // import Client Component
+// app/page.tsx (Server Component)
 
-export default async function Home() {
-  const result = await getStudents();
-  const students: Student[] = result.success && result.data ? result.data : [];
+import RegisterForm from './components/RegisterForm'; // import Client Component
+import { createUser } from './actions/userActions'; // import action createUser
 
-  return <StudentList students={students} />;
+export default async function Page() {
+  // ส่งฟังก์ชัน createUser ให้ Client Component ใช้งานผ่าน props
+  return <RegisterForm createUser={createUser} />;
 }

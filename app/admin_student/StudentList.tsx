@@ -4,8 +4,8 @@ import Link from 'next/link';
 import { Student } from '@prisma/client';
 import { useRouter } from 'next/navigation';
 import React, { useState, useTransition } from 'react';
-import { deleteStudent } from './actions/studentActions'; // ปรับ path ให้ถูกต้อง
-import DeleteStudentButton from './components/DeleteStudentButton'; // ปรับ path ตามตำแหน่งไฟล์จริง
+import { deleteStudent } from '../actions/studentActions'; // ปรับ path ให้ถูกต้อง
+import DeleteStudentButton from '../components/DeleteStudentButton'; // ปรับ path ตามตำแหน่งไฟล์จริง
 
 
 interface Props {
@@ -42,6 +42,7 @@ export default function StudentList({ students }: Props) {
     <div className="min-h-screen bg-gradient-to-br from-blue-100 to-indigo-200 p-8">
       <div className="max-w-4xl mx-auto bg-white p-8 rounded-xl shadow-2xl border-b-4 border-blue-500">
         <div className="flex justify-between items-center mb-8 pb-4 border-b border-gray-200">
+          <h1 className="text-4xl font-extrabold text-blue-700 drop-shadow-md">สำหรับ ADMIN</h1>
           <h1 className="text-4xl font-extrabold text-blue-700 drop-shadow-md">รายชื่อนักเรียน</h1>
           <Link
             href="/add_students"

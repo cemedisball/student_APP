@@ -1,7 +1,8 @@
 'use server';
 
 import { revalidatePath } from 'next/cache';
-import { prisma } from '@/lib/prisma';
+import  prisma  from '@/lib/prisma';
+import bcrypt from 'bcryptjs';
 
 export async function getStudents() {
   try {
